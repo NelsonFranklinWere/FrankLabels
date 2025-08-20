@@ -1,0 +1,11 @@
+User-agent: *
+Allow: /
+
+# Block admin or private pages (if you ever add WordPress, backend, etc.)
+Disallow: /admin/
+Disallow: /login/
+Disallow: /cart/
+Disallow: /checkout/
+
+# Sitemap link (very important!)
+Sitemap: https://franklabels.store/sitemap.xml

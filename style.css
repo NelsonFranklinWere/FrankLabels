@@ -486,6 +486,87 @@
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
     gap: 30px;
 }
+
+/* ===== ABOUT SECTION ===== */
+.about {
+  padding: 60px 20px;
+  background: #f9f9f9;
+  text-align: center;
+}
+
+.about .container {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.about .section-title {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  color: #222;
+}
+
+.about p {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: #444;
+  margin-bottom: 15px;
+}
+
+/* ===== CONTACT SECTION ===== */
+.contact {
+  padding: 60px 20px;
+  background: #fff;
+}
+
+.contact .container {
+  max-width: 900px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.contact .section-title {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  color: #222;
+}
+
+.contact p {
+  font-size: 1.1rem;
+  margin-bottom: 20px;
+  color: #444;
+}
+
+.contact-list {
+  list-style: none;
+  padding: 0;
+  margin: 20px 0;
+}
+
+.contact-list li {
+  font-size: 1.1rem;
+  margin: 10px 0;
+  color: #333;
+}
+
+.contact-list li i {
+  color: #25D366;
+  margin-right: 10px;
+}
+
+.contact-list a {
+  color: #25D366;
+  text-decoration: none;
+}
+
+.contact-list a:hover {
+  text-decoration: underline;
+}
+
+.map-embed iframe {
+  border-radius: 10px;
+  margin-top: 20px;
+}
+
 .product-card {
     background: #fff;
     border-radius: 12px;
@@ -764,7 +845,6 @@
 
 /* Lazy loading images */
 .product-image img, .carousel-slide img {
-    loading: lazy;
     background: #eaeaea;
     min-height: 80px;
     filter: blur(0.5px);
