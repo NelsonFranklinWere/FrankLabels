@@ -1,3 +1,49 @@
+/* Highlight product cards for last 3 */
+.highlight-card {
+    box-shadow: 0 8px 24px rgba(44,62,80,0.12), 0 1.5px 6px rgba(230,103,34,0.10);
+    border: 2px solid var(--secondary);
+    background: #fffbe6;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+.highlight-card:hover {
+    transform: scale(1.04);
+    box-shadow: 0 12px 32px rgba(44,62,80,0.18), 0 2px 8px rgba(230,103,34,0.15);
+}
+
+/* Testimonials title styling */
+.testimonials-title {
+    font-size: 2.8rem;
+    color: var(--secondary);
+    text-align: center;
+    margin: 3rem 0 2rem 0;
+    font-weight: 900;
+    letter-spacing: 2px;
+    text-shadow: 0 2px 8px rgba(44,62,80,0.08);
+}
+/* Show mobile menu when .show class is added */
+@media (max-width: 768px) {
+    nav ul {
+        display: none !important;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.3s;
+    }
+    nav ul.show {
+        display: flex !important;
+        flex-direction: column;
+        align-items: center;
+        background: var(--primary);
+        position: absolute;
+        top: 60px;
+        left: 0;
+        width: 100%;
+        z-index: 999;
+        box-shadow: var(--shadow);
+        opacity: 1;
+        pointer-events: auto;
+        transition: opacity 0.3s;
+    }
+}
  :root {
             --primary: #2c3e50;
             --secondary: #e67e22;
