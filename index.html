@@ -46,10 +46,16 @@
   </script>
 </head>
 <body>
-    <!-- WhatsApp Float Button -->
-    <a href="https://wa.me/254743869564" class="whatsapp-float" target="_blank">
-        <i class="fab fa-whatsapp"></i>
-    </a>
+   <!-- WhatsApp Float Button -->
+<a href="https://wa.me/254743869564" class="whatsapp-float" target="_blank">
+  <img src="mikel.jpg" alt="Chat with us">
+</a>
+
+<!-- Popup Message -->
+<div class="whatsapp-popup" id="whatsappPopup">
+Hi, I’m Frank.Ask me your Fit?
+</div>
+
 
     <!-- Header -->
     <header>
@@ -354,96 +360,106 @@
         </div>
     </footer>
 
-    <script>
-        // Mobile menu toggle
-        document.querySelector('.mobile-menu-btn').addEventListener('click', function() {
-            document.querySelector('nav ul').classList.toggle('show');
-        });
-
-        // Close mobile menu when a nav link is clicked (same as collection.html)
-        document.querySelectorAll('nav ul li a').forEach(link => {
-            link.addEventListener('click', function() {
-                document.querySelector('nav ul').classList.remove('show');
-            });
-        });
-
-        // Form submission
-        document.addEventListener('DOMContentLoaded', function() {
-    const form = document.querySelector('.form');
-    
-    form.addEventListener('submit', function(e) {
-        e.preventDefault();
-        
-        // Get form values
-        const name = document.getElementById('name').value.trim();
-        const email = document.getElementById('email').value.trim();
-        const message = document.getElementById('message').value.trim();
-        
-        // Simple validation
-        if (!name) {
-            alert('Please enter your name');
-            return;
-        }
-        
-        if (!email || !email.includes('@')) {
-            alert('Please enter a valid email address');
-            return;
-        }
-        
-        if (!message) {
-            alert('Please enter your message');
-            return;
-        }
-        
-        // If validation passes, submit the form
-        form.submit();
+<script>
+    // Mobile menu toggle
+    document.querySelector('.mobile-menu-btn').addEventListener('click', function() {
+        document.querySelector('nav ul').classList.toggle('show');
     });
-});
 
-        // Smooth scrolling for navigation links
-        document.querySelectorAll('nav a, .hero-buttons a').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                // Only prevent default for anchor links that start with #
-                if (this.getAttribute('href').startsWith('#')) {
-                    e.preventDefault();
-                    
-                    const targetId = this.getAttribute('href');
-                    const targetSection = document.querySelector(targetId);
-                    
-                    window.scrollTo({
-                        top: targetSection.offsetTop - 80,
-                        behavior: 'smooth'
-                    });
-                }
-                // For external links like collection.html, let the browser handle them normally
-            });
+    // Close mobile menu when a nav link is clicked (same as collection.html)
+    document.querySelectorAll('nav ul li a').forEach(link => {
+        link.addEventListener('click', function() {
+            document.querySelector('nav ul').classList.remove('show');
         });
+    });
 
-        // Simple animation for product cards
-        function animateOnScroll() {
-            const productCards = document.querySelectorAll('.product-card, .category-card, .testimonial-card');
+    // Show WhatsApp popup after 5 seconds
+    setTimeout(function() {
+        document.getElementById('whatsappPopup').style.display = 'block';
+    }, 5000);
+
+    // Hide popup when clicked (optional)
+    document.getElementById('whatsappPopup').addEventListener('click', function() {
+        this.style.display = 'none';
+    });
+
+    // Form submission
+    document.addEventListener('DOMContentLoaded', function() {
+        const form = document.querySelector('.form');
+        
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
             
-            productCards.forEach(card => {
-                const position = card.getBoundingClientRect();
-                
-                // If card is in viewport
-                if(position.top < window.innerHeight - 100) {
-                    card.style.opacity = 1;
-                    card.style.transform = 'translateY(0)';
-                }
-            });
-        }
-
-        // Initialize animation
-        document.querySelectorAll('.product-card, .category-card, .testimonial-card').forEach(card => {
-            card.style.opacity = 0;
-            card.style.transform = 'translateY(20px)';
-            card.style.transition = 'all 0.5s ease';
+            // Get form values
+            const name = document.getElementById('name').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const message = document.getElementById('message').value.trim();
+            
+            // Simple validation
+            if (!name) {
+                alert('Please enter your name');
+                return;
+            }
+            
+            if (!email || !email.includes('@')) {
+                alert('Please enter a valid email address');
+                return;
+            }
+            
+            if (!message) {
+                alert('Please enter your message');
+                return;
+            }
+            
+            // If validation passes, submit the form
+            form.submit();
         });
+    });
 
-        window.addEventListener('scroll', animateOnScroll);
-        // Initial call in case cards are already in view
-        animateOnScroll();
-    </script>
-</body>
-</html>
+    // Smooth scrolling for navigation links
+    document.querySelectorAll('nav a, .hero-buttons a').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            // Only prevent default for anchor links that start with #
+            if (this.getAttribute('href').startsWith('#')) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetSection = document.querySelector(targetId);
+                
+                window.scrollTo({
+                    top: targetSection.offsetTop - 80,
+                    behavior: 'smooth'
+                });
+            }
+            // For external links like collection.html, let the browser handle them normally
+        });
+    });
+
+    // Simple animation for product cards
+    function animateOnScroll() {
+        const productCards = document.querySelectorAll('.product-card, .category-card, .testimonial-card');
+        
+        productCards.forEach(card => {
+            const position = card.getBoundingClientRect();
+            
+            // If card is in viewport
+            if(position.top < window.innerHeight - 100) {
+                card.style.opacity = 1;
+                card.style.transform = 'translateY(0)';
+            }
+        });
+    }
+
+    // Initialize animation
+    document.querySelectorAll('.product-card, .category-card, .testimonial-card').forEach(card => {
+        card.style.opacity = 0;
+        card.style.transform = 'translateY(20px)';
+        card.style.transition = 'all 0.5s ease';
+    });
+
+    window.addEventListener('scroll', animateOnScroll);
+    // Initial call in case cards are already in view
+    animateOnScroll();
+</script>
+animateOnScroll();
+</script>
