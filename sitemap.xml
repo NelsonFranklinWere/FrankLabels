@@ -1,32 +1,116 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
+        xmlns:news="http://www.google.com/schemas/sitemap-news/0.9">
 
+  <!-- Home Page -->
   <url>
     <loc>https://franklabels.store/</loc>
-    <lastmod>2025-08-16</lastmod>
-    <changefreq>weekly</changefreq>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>daily</changefreq>
     <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://franklabels.store/images/home-banner.jpg</image:loc>
+      <image:title>Frank_Labels - Premium Sneakers & Shoes in Nairobi, Kenya</image:title>
+    </image:image>
   </url>
 
+  <!-- Collection Page -->
   <url>
-    <loc>https://franklabels.store/collection</loc>
-    <lastmod>2025-08-16</lastmod>
+    <loc>https://franklabels.store/collection.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.95</priority>
+    <image:image>
+      <image:loc>https://franklabels.store/images/collection-banner.jpg</image:loc>
+      <image:title>Frank_Labels Sneakers Collection - Air Jordans, Air Force 1, Adidas & More</image:title>
+    </image:image>
+  </url>
+
+  <!-- Product Pages -->
+  <url>
+    <loc>https://franklabels.store/products/airforce1.html</loc>
+    <lastmod>2025-10-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://franklabels.store/images/airforce1.jpg</image:loc>
+      <image:title>Nike Air Force 1 White – Classic Premium Sneakers in Kenya</image:title>
+    </image:image>
   </url>
 
   <url>
-    <loc>https://franklabels.store/products</loc>
-    <lastmod>2025-08-16</lastmod>
+    <loc>https://franklabels.store/products/jordan1.html</loc>
+    <lastmod>2025-10-13</lastmod>
     <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://franklabels.store/images/jordan1.jpg</image:loc>
+      <image:title>Air Jordan 1 Retro – Authentic Sneaker Collection Nairobi</image:title>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://franklabels.store/products/adidas-campus.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://franklabels.store/images/adidas-campus.jpg</image:loc>
+      <image:title>Adidas Campus Kenya – Stylish & Comfortable Everyday Sneakers</image:title>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://franklabels.store/products/vans-skater.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://franklabels.store/images/vans-skater.jpg</image:loc>
+      <image:title>Vans Skater Shoes – Streetwear Classics in Nairobi</image:title>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://franklabels.store/products/timberland.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://franklabels.store/images/timberland.jpg</image:loc>
+      <image:title>Timberland Boots – Durable Outdoor Wear in Kenya</image:title>
+    </image:image>
+  </url>
+
+  <!-- Contact Page -->
+  <url>
+    <loc>https://franklabels.store/contact.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- City-Specific Pages (Future SEO Boost) -->
+  <url>
+    <loc>https://franklabels.store/nairobi.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
-    <loc>https://franklabels.store/contact</loc>
-    <lastmod>2025-08-16</lastmod>
+    <loc>https://franklabels.store/kisumu.html</loc>
+    <lastmod>2025-10-13</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://franklabels.store/nakuru.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
   </url>
 
 </urlset>

@@ -1,11 +1,48 @@
+# Frank_Labels Robots.txt
 User-agent: *
 Allow: /
 
-# Block admin or private pages (if you ever add WordPress, backend, etc.)
+# Block sensitive or redundant pages
 Disallow: /admin/
-Disallow: /login/
 Disallow: /cart/
 Disallow: /checkout/
+Disallow: /login/
+Disallow: /tmp/
+Disallow: /private/
 
-# Sitemap link (very important!)
+# Sitemap location
 Sitemap: https://franklabels.store/sitemap.xml
+
+# Crawl delay to prevent overload
+Crawl-delay: 2
+
+# Target bots allowed (Google, Bing, Yandex)
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 1
+
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 2
+
+User-agent: Yandex
+Allow: /
+
+# Block AI scrapers & content harvesters
+User-agent: GPTBot
+Disallow: /
+User-agent: ChatGPT-User
+Disallow: /
+User-agent: CCBot
+Disallow: /
+User-agent: FacebookExternalHit
+Allow: /
+
+# Specific instruction for image indexing (Google Images)
+User-agent: Googlebot-Image
+Allow: /images/
+Disallow: /private/
+
+# Reference
+# Contact: info@franklabels.store
+# Brand: Frank_Labels – Kenya’s Trusted Sneaker Store
