@@ -222,7 +222,9 @@ Hi, I’m Frank.Ask me your Fit?
                         <h3>Dr. Martens LowCuts</h3>
                         <p>Premium shoes with enhanced cushioning</p>
                         <div class="price">KSh 4,000</div>
-                        <a href="#" class="btn">Add to Cart</a>
+                        <button class="btn add-to-cart" data-id="1001" data-name="Dr. Martens LowCuts" data-price="4000" data-image="Dr.Martins.jpg">
+                            Add to Cart
+                        </button>
                     </div>
                 </div>
                 <div class="product-card">
@@ -231,7 +233,9 @@ Hi, I’m Frank.Ask me your Fit?
                         <h3>Classic Dior Loafers</h3>
                         <p>Durable Highcuts perfect for all weather conditions</p>
                         <div class="price">KSh 2,800</div>
-                        <a href="#" class="btn">Add to Cart</a>
+                        <button class="btn add-to-cart" data-id="1002" data-name="Classic Dior Loafers" data-price="2800" data-image="Loafer Highcuts.jpg">
+                            Add to Cart
+                        </button>
                     </div>
                 </div>
                 <div class="product-card">
@@ -240,7 +244,9 @@ Hi, I’m Frank.Ask me your Fit?
                         <h3>Timberland Sweed</h3>
                         <p>Lightweight sneakers for everyday wear</p>
                         <div class="price">KSh 2,500</div>
-                        <a href="#" class="btn">Add to Cart</a>
+                        <button class="btn add-to-cart" data-id="1003" data-name="Timberland Sweed" data-price="2500" data-image="Timberland loafers.jpg">
+                            Add to Cart
+                        </button>
                     </div>
                 </div>
                 <div class="product-card">
@@ -249,7 +255,9 @@ Hi, I’m Frank.Ask me your Fit?
                         <h3>Classic Leather Boots</h3>
                         <p>Durable boots perfect for all weather conditions</p>
                         <div class="price">KSh 4,200</div>
-                        <a href="#" class="btn">Add to Cart</a>
+                        <button class="btn add-to-cart" data-id="1004" data-name="Classic Leather Boots" data-price="4200" data-image="Supreme Timberland.jpg">
+                            Add to Cart
+                        </button>
                     </div>
                 </div>
                 <div class="product-card">
@@ -258,7 +266,9 @@ Hi, I’m Frank.Ask me your Fit?
                         <h3>Quality Open Shoes</h3>
                         <p>Durable Opens perfect for all weather conditions</p>
                         <div class="price">KSh 2,300</div>
-                        <a href="#" class="btn">Add to Cart</a>
+                        <button class="btn add-to-cart" data-id="1005" data-name="Quality Open Shoes" data-price="2300" data-image="Opens Shoes (2).jpg">
+                            Add to Cart
+                        </button>
                     </div>
                 </div>
                 <div class="product-card">
@@ -267,7 +277,9 @@ Hi, I’m Frank.Ask me your Fit?
                         <h3>Air Force 1 Sneakers</h3>
                         <p>Durable Sneakers perfect for all weather conditions</p>
                         <div class="price">KSh 2,500</div>
-                        <a href="#" class="btn">Add to Cart</a>
+                        <button class="btn add-to-cart" data-id="1006" data-name="Air Force 1 Sneakers" data-price="2500" data-image="Air Force 1 Customised  (2).jpg">
+                            Add to Cart
+                        </button>
                     </div>
                 </div>
             </div>
@@ -441,6 +453,36 @@ Hi, I’m Frank.Ask me your Fit?
         </div>
     </section>
 
+    <!-- Cart Modal -->
+    <div id="cartModal" class="cart-modal">
+        <div class="cart-content">
+            <div class="cart-header">
+                <h3><i class="fas fa-shopping-cart"></i> Shopping Cart</h3>
+                <button class="close-cart">&times;</button>
+            </div>
+            <div class="cart-items" id="cartItems">
+                <!-- Cart items will be populated here -->
+            </div>
+            <div class="cart-footer">
+                <div class="cart-total">
+                    <strong>Total: Ksh. <span id="cartTotal">0.00</span></strong>
+                </div>
+                <div class="cart-actions">
+                    <button class="btn btn-outline" id="clearCart">Clear Cart</button>
+                    <button class="btn" id="checkoutCart">
+                        <i class="fab fa-whatsapp"></i> Checkout via WhatsApp
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cart Button -->
+    <button id="cartButton" class="cart-button">
+        <i class="fas fa-shopping-cart"></i>
+        <span id="cartCount">0</span>
+    </button>
+
     <!-- Footer -->
     <footer>
         <div class="container">
@@ -576,6 +618,188 @@ Hi, I’m Frank.Ask me your Fit?
     window.addEventListener('scroll', animateOnScroll);
     // Initial call in case cards are already in view
     animateOnScroll();
-</script>
-animateOnScroll();
+
+    // Cart functionality
+    let cart = [];
+    
+    // Load cart from localStorage
+    function loadCart() {
+        const savedCart = localStorage.getItem('frankLabelsCart');
+        if (savedCart) {
+            cart = JSON.parse(savedCart);
+        }
+        updateCartUI();
+    }
+
+    // Save cart to localStorage
+    function saveCart() {
+        localStorage.setItem('frankLabelsCart', JSON.stringify(cart));
+    }
+
+    // Add item to cart
+    function addToCart(product) {
+        const existingItem = cart.find(item => item.id === product.id);
+        if (existingItem) {
+            existingItem.quantity += 1;
+        } else {
+            cart.push({
+                id: product.id,
+                name: product.name,
+                price: product.price,
+                image: product.image,
+                quantity: 1
+            });
+        }
+        saveCart();
+        updateCartUI();
+        showCartNotification();
+    }
+
+    // Remove item from cart
+    function removeFromCart(itemId) {
+        cart = cart.filter(item => item.id !== itemId);
+        saveCart();
+        updateCartUI();
+    }
+
+    // Update item quantity
+    function updateQuantity(itemId, quantity) {
+        const item = cart.find(item => item.id === itemId);
+        if (item) {
+            if (quantity <= 0) {
+                removeFromCart(itemId);
+            } else {
+                item.quantity = quantity;
+                saveCart();
+                updateCartUI();
+            }
+        }
+    }
+
+    // Update cart UI
+    function updateCartUI() {
+        const cartCount = document.getElementById('cartCount');
+        const cartItems = document.getElementById('cartItems');
+        const cartTotal = document.getElementById('cartTotal');
+        
+        // Update cart count
+        const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+        cartCount.textContent = totalItems;
+        
+        // Update cart items
+        if (cart.length === 0) {
+            cartItems.innerHTML = '<p style="text-align: center; padding: 20px; color: #666;">Your cart is empty</p>';
+            cartTotal.textContent = '0.00';
+        } else {
+            cartItems.innerHTML = cart.map(item => `
+                <div class="cart-item">
+                    <div class="cart-item-image">
+                        <img src="${item.image}" alt="${item.name}">
+                    </div>
+                    <div class="cart-item-details">
+                        <h4>${item.name}</h4>
+                        <p>Ksh. ${item.price.toFixed(2)}</p>
+                    </div>
+                    <div class="cart-item-controls">
+                        <button class="quantity-btn" onclick="updateQuantity(${item.id}, ${item.quantity - 1})">-</button>
+                        <span class="quantity">${item.quantity}</span>
+                        <button class="quantity-btn" onclick="updateQuantity(${item.id}, ${item.quantity + 1})">+</button>
+                        <button class="remove-btn" onclick="removeFromCart(${item.id})">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+            
+            const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            cartTotal.textContent = total.toFixed(2);
+        }
+    }
+
+    // Show cart notification
+    function showCartNotification() {
+        const notification = document.createElement('div');
+        notification.className = 'cart-notification';
+        notification.innerHTML = '<i class="fas fa-check"></i> Added to cart!';
+        document.body.appendChild(notification);
+        
+        setTimeout(() => {
+            notification.classList.add('show');
+        }, 100);
+        
+        setTimeout(() => {
+            notification.classList.remove('show');
+            setTimeout(() => {
+                document.body.removeChild(notification);
+            }, 300);
+        }, 2000);
+    }
+
+    // Event listeners for cart functionality
+    document.addEventListener('DOMContentLoaded', function() {
+        loadCart();
+        
+        // Add to cart buttons
+        document.addEventListener('click', function(e) {
+            if (e.target.closest('.add-to-cart')) {
+                const button = e.target.closest('.add-to-cart');
+                const product = {
+                    id: parseInt(button.getAttribute('data-id')),
+                    name: button.getAttribute('data-name'),
+                    price: parseFloat(button.getAttribute('data-price')),
+                    image: button.getAttribute('data-image')
+                };
+                addToCart(product);
+            }
+        });
+
+        // Cart button click
+        document.getElementById('cartButton').addEventListener('click', function() {
+            document.getElementById('cartModal').style.display = 'flex';
+        });
+
+        // Close cart modal
+        document.querySelector('.close-cart').addEventListener('click', function() {
+            document.getElementById('cartModal').style.display = 'none';
+        });
+
+        // Close cart modal when clicking outside
+        document.getElementById('cartModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                this.style.display = 'none';
+            }
+        });
+
+        // Clear cart
+        document.getElementById('clearCart').addEventListener('click', function() {
+            if (confirm('Are you sure you want to clear your cart?')) {
+                cart = [];
+                saveCart();
+                updateCartUI();
+            }
+        });
+
+        // Checkout cart
+        document.getElementById('checkoutCart').addEventListener('click', function() {
+            if (cart.length === 0) {
+                alert('Your cart is empty!');
+                return;
+            }
+            
+            let message = 'Hi Frank_Labels! 👋%0A%0AI would like to place an order for the following items:%0A%0A';
+            let total = 0;
+            
+            cart.forEach((item, index) => {
+                const fullImageUrl = `${window.location.origin}/${item.image}`;
+                message += `${index + 1}. 🪄 ${item.name}%0A💰 Price: KES ${item.price.toFixed(2)} x ${item.quantity} = KES ${(item.price * item.quantity).toFixed(2)}%0A🔗 View: ${fullImageUrl}%0A%0A`;
+                total += item.price * item.quantity;
+            });
+            
+            message += `📊 Total: KES ${total.toFixed(2)}%0A%0A`;
+            message += `Please confirm availability and provide delivery details.`;
+            
+            const whatsappURL = `https://wa.me/254743869564?text=${message}`;
+            window.open(whatsappURL, '_blank');
+        });
+    });
 </script>

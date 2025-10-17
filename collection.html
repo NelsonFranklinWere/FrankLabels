@@ -177,6 +177,36 @@
         </div>
     </div>
 
+    <!-- Cart Modal -->
+    <div id="cartModal" class="cart-modal">
+        <div class="cart-content">
+            <div class="cart-header">
+                <h3><i class="fas fa-shopping-cart"></i> Shopping Cart</h3>
+                <button class="close-cart">&times;</button>
+            </div>
+            <div class="cart-items" id="cartItems">
+                <!-- Cart items will be populated here -->
+            </div>
+            <div class="cart-footer">
+                <div class="cart-total">
+                    <strong>Total: Ksh. <span id="cartTotal">0.00</span></strong>
+                </div>
+                <div class="cart-actions">
+                    <button class="btn btn-outline" id="clearCart">Clear Cart</button>
+                    <button class="btn" id="checkoutCart">
+                        <i class="fab fa-whatsapp"></i> Checkout via WhatsApp
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cart Button -->
+    <button id="cartButton" class="cart-button">
+        <i class="fas fa-shopping-cart"></i>
+        <span id="cartCount">0</span>
+    </button>
+
     <!-- Footer -->
     <footer>
         <div class="container">
@@ -601,6 +631,7 @@
                     <div class="shoe-image">
                         <img src="${shoe.image}" alt="${shoe.name}">
                         <div class="shoe-badge">${shoe.badge}</div>
+                        <button class="wishlist"><i class="far fa-heart"></i></button>
                     </div>
                     <div class="shoe-info">
                         <div class="shoe-category">${shoe.category.charAt(0).toUpperCase() + shoe.category.slice(1)}</div>
@@ -608,10 +639,12 @@
                         <p class="shoe-description">${shoe.description}</p>
                         <div class="shoe-price">Ksh. ${shoe.price.toFixed(2)}</div>
                         <div class="shoe-actions">
-                            <button class="whatsapp-order" data-shoe="${shoe.name}" data-price="${shoe.price}">
-                                <i class="fab fa-whatsapp"></i> Order via WhatsApp
+                            <button class="add-to-cart" data-shoe="${shoe.name}" data-price="${shoe.price}" data-image="${shoe.image}" data-id="${shoe.id}">
+                                <i class="fas fa-shopping-cart"></i> Cart
                             </button>
-                            <button class="wishlist"><i class="far fa-heart"></i></button>
+                            <button class="whatsapp-order" data-shoe="${shoe.name}" data-price="${shoe.price}" data-image="${shoe.image}">
+                                <i class="fab fa-whatsapp"></i> Order
+                            </button>
                         </div>
                     </div>
                 `;
@@ -624,8 +657,11 @@
                 button.addEventListener('click', function() {
                     const shoeName = this.getAttribute('data-shoe');
                     const price = this.getAttribute('data-price');
-                    const message = `Hello! I would like to order the ${shoeName} (Ksh. ${price}).`;
-                    const whatsappURL = `https://wa.me/254743869564?text=${encodeURIComponent(message)}`;
+                    const imageUrl = this.getAttribute('data-image');
+                    const currentPageUrl = window.location.href;
+                    const fullImageUrl = `${window.location.origin}/${imageUrl}`;
+                    const message = `Hi Frank_Labels! 👋%0A%0AI'm interested in this shoe:%0A🪄 ${shoeName}%0A💰 Price: KES ${price}%0A%0AYou can view it here: ${fullImageUrl}%0A%0APlease confirm availability.`;
+                    const whatsappURL = `https://wa.me/254743869564?text=${message}`;
                     window.open(whatsappURL, '_blank');
                 });
             });
@@ -704,6 +740,190 @@
         document.querySelectorAll('nav ul li a').forEach(link => {
             link.addEventListener('click', function() {
                 document.querySelector('nav ul').classList.remove('show');
+            });
+        });
+
+        // Cart functionality
+        let cart = [];
+        
+        // Load cart from localStorage
+        function loadCart() {
+            const savedCart = localStorage.getItem('frankLabelsCart');
+            if (savedCart) {
+                cart = JSON.parse(savedCart);
+            }
+            updateCartUI();
+        }
+
+        // Save cart to localStorage
+        function saveCart() {
+            localStorage.setItem('frankLabelsCart', JSON.stringify(cart));
+        }
+
+        // Add item to cart
+        function addToCart(shoe) {
+            const existingItem = cart.find(item => item.id === shoe.id);
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({
+                    id: shoe.id,
+                    name: shoe.name,
+                    price: shoe.price,
+                    image: shoe.image,
+                    quantity: 1
+                });
+            }
+            saveCart();
+            updateCartUI();
+            showCartNotification();
+        }
+
+        // Remove item from cart
+        function removeFromCart(itemId) {
+            cart = cart.filter(item => item.id !== itemId);
+            saveCart();
+            updateCartUI();
+        }
+
+        // Update item quantity
+        function updateQuantity(itemId, quantity) {
+            const item = cart.find(item => item.id === itemId);
+            if (item) {
+                if (quantity <= 0) {
+                    removeFromCart(itemId);
+                } else {
+                    item.quantity = quantity;
+                    saveCart();
+                    updateCartUI();
+                }
+            }
+        }
+
+        // Update cart UI
+        function updateCartUI() {
+            const cartCount = document.getElementById('cartCount');
+            const cartItems = document.getElementById('cartItems');
+            const cartTotal = document.getElementById('cartTotal');
+            
+            // Update cart count
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            cartCount.textContent = totalItems;
+            
+            // Update cart items
+            if (cart.length === 0) {
+                cartItems.innerHTML = '<p style="text-align: center; padding: 20px; color: #666;">Your cart is empty</p>';
+                cartTotal.textContent = '0.00';
+            } else {
+                cartItems.innerHTML = cart.map(item => `
+                    <div class="cart-item">
+                        <div class="cart-item-image">
+                            <img src="${item.image}" alt="${item.name}">
+                        </div>
+                        <div class="cart-item-details">
+                            <h4>${item.name}</h4>
+                            <p>Ksh. ${item.price.toFixed(2)}</p>
+                        </div>
+                        <div class="cart-item-controls">
+                            <button class="quantity-btn" onclick="updateQuantity(${item.id}, ${item.quantity - 1})">-</button>
+                            <span class="quantity">${item.quantity}</span>
+                            <button class="quantity-btn" onclick="updateQuantity(${item.id}, ${item.quantity + 1})">+</button>
+                            <button class="remove-btn" onclick="removeFromCart(${item.id})">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                `).join('');
+                
+                const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+                cartTotal.textContent = total.toFixed(2);
+            }
+        }
+
+        // Show cart notification
+        function showCartNotification() {
+            const notification = document.createElement('div');
+            notification.className = 'cart-notification';
+            notification.innerHTML = '<i class="fas fa-check"></i> Added to cart!';
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.classList.add('show');
+            }, 100);
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+                setTimeout(() => {
+                    document.body.removeChild(notification);
+                }, 300);
+            }, 2000);
+        }
+
+        // Event listeners for cart functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            loadCart();
+            
+            // Add to cart buttons
+            document.addEventListener('click', function(e) {
+                if (e.target.closest('.add-to-cart')) {
+                    const button = e.target.closest('.add-to-cart');
+                    const shoe = {
+                        id: parseInt(button.getAttribute('data-id')),
+                        name: button.getAttribute('data-shoe'),
+                        price: parseFloat(button.getAttribute('data-price')),
+                        image: button.getAttribute('data-image')
+                    };
+                    addToCart(shoe);
+                }
+            });
+
+            // Cart button click
+            document.getElementById('cartButton').addEventListener('click', function() {
+                document.getElementById('cartModal').style.display = 'flex';
+            });
+
+            // Close cart modal
+            document.querySelector('.close-cart').addEventListener('click', function() {
+                document.getElementById('cartModal').style.display = 'none';
+            });
+
+            // Close cart modal when clicking outside
+            document.getElementById('cartModal').addEventListener('click', function(e) {
+                if (e.target === this) {
+                    this.style.display = 'none';
+                }
+            });
+
+            // Clear cart
+            document.getElementById('clearCart').addEventListener('click', function() {
+                if (confirm('Are you sure you want to clear your cart?')) {
+                    cart = [];
+                    saveCart();
+                    updateCartUI();
+                }
+            });
+
+            // Checkout cart
+            document.getElementById('checkoutCart').addEventListener('click', function() {
+                if (cart.length === 0) {
+                    alert('Your cart is empty!');
+                    return;
+                }
+                
+                let message = 'Hi Frank_Labels! 👋%0A%0AI would like to place an order for the following items:%0A%0A';
+                let total = 0;
+                
+                cart.forEach((item, index) => {
+                    const fullImageUrl = `${window.location.origin}/${item.image}`;
+                    message += `${index + 1}. 🪄 ${item.name}%0A💰 Price: KES ${item.price.toFixed(2)} x ${item.quantity} = KES ${(item.price * item.quantity).toFixed(2)}%0A🔗 View: ${fullImageUrl}%0A%0A`;
+                    total += item.price * item.quantity;
+                });
+                
+                message += `📊 Total: KES ${total.toFixed(2)}%0A%0A`;
+                message += `Please confirm availability and provide delivery details.`;
+                
+                const whatsappURL = `https://wa.me/254743869564?text=${message}`;
+                window.open(whatsappURL, '_blank');
             });
         });
     </script>
