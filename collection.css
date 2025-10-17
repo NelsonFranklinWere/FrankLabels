@@ -375,6 +375,74 @@ footer {
     margin-top: 4rem;
 }
 
+/* Fullscreen Image Modal */
+.image-modal {
+    position: fixed;
+    inset: 0;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 1100;
+}
+
+.image-modal.show {
+    display: flex;
+}
+
+.image-modal img {
+    max-width: 90vw;
+    max-height: 90vh;
+    border-radius: 8px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    position: relative;
+    z-index: 2;
+}
+
+.image-modal-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.8);
+    backdrop-filter: blur(2px);
+    z-index: 1;
+}
+
+.image-modal-close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: rgba(255,255,255,0.9);
+    border: none;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    font-size: 1.5rem;
+    cursor: pointer;
+    z-index: 3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #333;
+}
+
+.image-modal-close:hover {
+    background: #fff;
+}
+
+@media (max-width: 600px) {
+    .image-modal img {
+        max-width: 95vw;
+        max-height: 85vh;
+        border-radius: 6px;
+    }
+    .image-modal-close {
+        top: 12px;
+        right: 12px;
+        width: 38px;
+        height: 38px;
+        font-size: 1.3rem;
+    }
+}
+
 .footer-content {
     max-width: 1200px;
     margin: 0 auto;

@@ -927,5 +927,54 @@
             });
         });
     </script>
+
+    <!-- Image Modal Viewer -->
+    <div id="imageModal" class="image-modal" aria-hidden="true">
+        <button class="image-modal-close" aria-label="Close image">&times;</button>
+        <img id="imageModalImg" src="" alt="Product image preview">
+        <div class="image-modal-backdrop"></div>
+    </div>
+
+    <script>
+        // Fullscreen image modal handlers
+        (function() {
+            const modal = document.getElementById('imageModal');
+            const modalImg = document.getElementById('imageModalImg');
+            const closeBtn = modal.querySelector('.image-modal-close');
+
+            // Delegate clicks on shoe images
+            document.addEventListener('click', function(e) {
+                const imgEl = e.target.closest('.shoe-image img');
+                if (!imgEl) return;
+                modalImg.src = imgEl.getAttribute('src');
+                modal.setAttribute('aria-hidden', 'false');
+                modal.classList.add('show');
+                document.body.style.overflow = 'hidden';
+            });
+
+            function closeModal() {
+                modal.classList.remove('show');
+                modal.setAttribute('aria-hidden', 'true');
+                modalImg.src = '';
+                document.body.style.overflow = '';
+            }
+
+            closeBtn.addEventListener('click', closeModal);
+
+            // Click outside image to close
+            modal.addEventListener('click', function(e) {
+                if (e.target === modal || e.target.classList.contains('image-modal-backdrop')) {
+                    closeModal();
+                }
+            });
+
+            // ESC key to close
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && modal.classList.contains('show')) {
+                    closeModal();
+                }
+            });
+        })();
+    </script>
 </body>
 </html>
