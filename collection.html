@@ -119,6 +119,22 @@
   }
   </script>
 
+  <!-- Google Analytics 4 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XXXXXXXXXX', {
+      page_title: document.title,
+      page_location: window.location.href,
+      custom_map: {
+        'custom_parameter_1': 'session_id',
+        'custom_parameter_2': 'user_engagement_score'
+      }
+    });
+  </script>
+
   <!-- Font Awesome & Styles -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
   <link rel="stylesheet" href="style.css">
@@ -976,5 +992,11 @@
             });
         })();
     </script>
+
+<!-- Frank Labels Analytics Configuration -->
+<script src="analytics-config.js"></script>
+
+<!-- Frank Labels Analytics Tracker -->
+<script src="analytics-tracker.js"></script>
 </body>
 </html>
