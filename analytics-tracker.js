@@ -1,9 +1,9 @@
 /**
- * Frank Labels - Advanced User Tracking & Analytics System
+ * Trendy Fashion Zone - Advanced User Tracking & Analytics System
  * Comprehensive tracking for user engagement, clicks, scrolls, and Google Analytics integration
  */
 
-class FrankLabelsTracker {
+class TrendyFashionZoneTracker {
     constructor() {
         this.sessionData = {
             sessionId: this.generateSessionId(),
@@ -19,7 +19,7 @@ class FrankLabelsTracker {
         };
         
         // Load configuration from external config file or use defaults
-        this.config = window.FrankLabelsAnalyticsConfig || {
+        this.config = window.TrendyFashionZoneAnalyticsConfig || {
             googleAnalytics: {
                 measurementId: 'G-XXXXXXXXXX',
                 enabled: true
@@ -54,7 +54,7 @@ class FrankLabelsTracker {
         this.setupSessionManagement();
         this.trackPageView();
         
-        console.log('Frank Labels Analytics Tracker initialized');
+        console.log('Trendy Fashion Zone Analytics Tracker initialized');
     }
 
     setupGoogleAnalytics() {
@@ -721,7 +721,7 @@ class FrankLabelsTracker {
 
     saveSessionData(force = false) {
         try {
-            localStorage.setItem('frank_labels_session', JSON.stringify({
+            localStorage.setItem('trendy_fashion_zone_session', JSON.stringify({
                 ...this.sessionData,
                 lastSaved: Date.now()
             }));
@@ -818,10 +818,10 @@ class FrankLabelsTracker {
 
 // Initialize the tracker when DOM is ready
 document.addEventListener('DOMContentLoaded', () => {
-    window.frankLabelsTracker = new FrankLabelsTracker();
+    window.trendyFashionZoneTracker = new TrendyFashionZoneTracker();
 });
 
 // Export for module systems
 if (typeof module !== 'undefined' && module.exports) {
-    module.exports = FrankLabelsTracker;
+    module.exports = TrendyFashionZoneTracker;
 }

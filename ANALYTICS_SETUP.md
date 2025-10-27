@@ -1,8 +1,8 @@
-# Frank Labels Analytics Setup Guide
+# Trendy Fashion Zone Analytics Setup Guide
 
 ## 🚀 Overview
 
-Your Frank Labels website now includes a comprehensive analytics tracking system that provides:
+Your Trendy Fashion Zone website now includes a comprehensive analytics tracking system that provides:
 
 - **Advanced User Engagement Tracking**: Clicks, scrolls, time on site, and user behavior
 - **Google Analytics 4 Integration**: Enhanced e-commerce tracking and custom events

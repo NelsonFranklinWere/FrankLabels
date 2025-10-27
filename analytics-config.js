@@ -1,9 +1,9 @@
 /**
- * Frank Labels Analytics Configuration
+ * Trendy Fashion Zone Analytics Configuration
  * Customize your tracking settings here
  */
 
-window.FrankLabelsAnalyticsConfig = {
+window.TrendyFashionZoneAnalyticsConfig = {
     // Google Analytics 4 Configuration
     googleAnalytics: {
         measurementId: 'G-XXXXXXXXXX', // Replace with your actual GA4 Measurement ID
@@ -134,28 +134,28 @@ window.FrankLabelsAnalyticsConfig = {
 
 // Helper function to update configuration
 window.updateAnalyticsConfig = function(newConfig) {
-    window.FrankLabelsAnalyticsConfig = {
-        ...window.FrankLabelsAnalyticsConfig,
+    window.TrendyFashionZoneAnalyticsConfig = {
+        ...window.TrendyFashionZoneAnalyticsConfig,
         ...newConfig
     };
     
     // Notify tracker of config change if it exists
-    if (window.frankLabelsTracker) {
-        window.frankLabelsTracker.updateConfig(window.FrankLabelsAnalyticsConfig);
+    if (window.trendyFashionZoneTracker) {
+        window.trendyFashionZoneTracker.updateConfig(window.TrendyFashionZoneAnalyticsConfig);
     }
 };
 
 // Helper function to get current configuration
 window.getAnalyticsConfig = function() {
-    return window.FrankLabelsAnalyticsConfig;
+    return window.TrendyFashionZoneAnalyticsConfig;
 };
 
 // Helper function to check if tracking is enabled
 window.isTrackingEnabled = function() {
-    return window.FrankLabelsAnalyticsConfig.tracking.enabled;
+    return window.TrendyFashionZoneAnalyticsConfig.tracking.enabled;
 };
 
 // Helper function to get Google Analytics ID
 window.getGoogleAnalyticsId = function() {
-    return window.FrankLabelsAnalyticsConfig.googleAnalytics.measurementId;
+    return window.TrendyFashionZoneAnalyticsConfig.googleAnalytics.measurementId;
 };
